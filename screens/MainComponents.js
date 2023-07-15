@@ -1,24 +1,46 @@
-import { CAMPSITES } from "../shared/campsites";
-import { useState } from "react";
 import DirectoryScreen from "./DirectoryScreen";
-import { View } from "react-native-animatable";
 import CampsiteInfoScreen from "./campsiteInfoScreen";
+import { Platform, View } from "react-native";
+import Constants from "expo-constants";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Main = () => {
-  const [campsites, setCampsites] = useState(CAMPSITES);
-  const [selectedCampsiteId, setSelectCampsiteId] = useState();
+const DirectoryNavigator = () => {
+  Stack = createStackNavigator();
 
   return (
-    <View style={{ flex: 1 }}>
-      <DirectoryScreen
-        campsites={campsites}
-        onPress={(campsiteId) => setSelectedCampsiteId(campsiteId)}
+    <Stack.Navigator
+      initialRouteName="Directory"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#5637DD",
+        },
+        headerTintColor: "#fff",
+      }}
+    >
+      <Stack.Screen
+        name="Directory"
+        component="DirectoryScreen"
+        option={{ title: "Campsite Directory" }}
       />
-      <CampsiteInfoScreen
-        campsite={
-          campsites.filter((campsite) => campsite.id === selectedCampsiteId)[0]
-        }
+      <Stack.Screen
+        name="CampsiteInfo"
+        component="CampsiteInfoScreen"
+        option={({ route }) => ({
+          title: route.params.campsite.name,
+        })}
       />
+    </Stack.Navigator>
+  );
+};
+const Main = () => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
+      }}
+    >
+      <DirectoryNavigator />
     </View>
   );
 };
