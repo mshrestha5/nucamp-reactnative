@@ -20,12 +20,20 @@ export const CAMPSITES = [
         name:"Breadcrumb Trail Campground",
         image: require("../assets/images/breadcrumb-trail.jpg"),
         elevation: 2901,
-        featured: false,
+        featured: true,
         description: "Let NuCamp be your guide to this off-the-beaten-path, hike-in-only campground."
     },
     {
         id: 3,
         name:"Redux Woods Campground",
+        image: require("../assets/images/redux-woods.jpg"),
+        elevation: 42,
+        featured: true,
+        description: "You'll never want to leave this hidden gem, deep within the lush Redux Woods."
+    },
+    {
+        id: 4,
+        name:"New Campsite - Blackhill Parks",
         image: require("../assets/images/redux-woods.jpg"),
         elevation: 42,
         featured: true,

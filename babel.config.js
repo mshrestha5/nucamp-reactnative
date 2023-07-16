@@ -1,4 +1,5 @@
 module.exports = function (api) {
+  //npx expo start -c
   api.cache(true);
   return {
     presets: ["babel-preset-expo"],
