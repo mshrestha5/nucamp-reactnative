@@ -2,6 +2,8 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import RenderCampsite from "../features/campsites/RenderCampsite";
 import { toggleFavorite } from "../features/favorites/favoritesSlice";
+import { Button, Modal } from "react-native";
+import { useState } from "react";
 
 const CampsiteInfoScreen = ({ route }) => {
   const { campsite } = route.params;
