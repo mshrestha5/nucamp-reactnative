@@ -1,26 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import { baseUrl } from "../../shared/baseUrl";
-import React, { useState } from "react";
 
 const RenderCampsite = (props) => {
   const { campsite } = props;
-  const [showModal, setShowModal] = useState(false);
-
   if (campsite) {
     return (
       <Card containerStyle={styles.cardContainer}>
         <Card.Image source={{ uri: baseUrl + campsite.image }}>
-          <View style={{ justifyContent: "center", flex: 1 }}>
-            <Text
-              style={{
-                color: "white",
-                textAlign: "center",
-                fontSize: 20,
-              }}
-            >
-              {campsite.name}
-            </Text>
+          <View style={styles.cardRow}>
+            <Text style={styles.cardText}>{campsite.name}</Text>
           </View>
         </Card.Image>
         <Text style={{ margin: 20 }}>{campsite.description}</Text>
@@ -40,10 +29,10 @@ const RenderCampsite = (props) => {
           <Icon
             name="pencil"
             type="font-awesome"
-            color="#5637DD"
+            color="#5637dd"
             raised
             reverse
-            onPress={() => props.onShowModal}
+            onPress={() => props.onShowModal()}
           />
         </View>
       </Card>
@@ -58,6 +47,7 @@ const styles = StyleSheet.create({
     margin: 0,
     marginBottom: 20,
   },
+
   cardRow: {
     alignItems: "center",
     justifyContent: "center",
@@ -65,6 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 20,
   },
+
   cardText: {
     textShadowColor: "rgba(0, 0, 0, 1)",
     textShadowOffset: { width: -1, height: 1 },
@@ -72,10 +63,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: 20,
-  },
-  modal: {
-    justifyContent: "center",
-    margin: 20,
   },
 });
 
