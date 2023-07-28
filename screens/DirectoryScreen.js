@@ -1,23 +1,44 @@
-import { FlatList } from "react-native";
-import { Avatar, ListItem } from "react-native-elements";
-const DirectoryScreen = (props) => {
+import { FlatList, Text, View } from "react-native";
+import { Tile } from "react-native-elements";
+import { useSelector } from "react-redux";
+import { baseUrl } from "../shared/baseUrl";
+import Loading from "../components/LoadingComponent";
+import * as Animatable from "react-native-animatable";
+
+const DirectoryScreen = ({ navigation }) => {
+  const campsites = useSelector((state) => state.campsites);
+
+  if (campsites.isLoading) {
+    return <Loading />;
+  }
+  if (campsites.errMess) {
+    return (
+      <View>
+        <Text>{campsites.errMess}</Text>
+      </View>
+    );
+  }
+
   const renderDirectoryItem = ({ item: campsite }) => {
     return (
-      <ListItem onPress={() => props.onPress(campsite.id)}>
-        <Avatar source={campsite.image} rounded />
-        <ListItem.Content>
-          <ListItem.title>{campsite.name}</ListItem.title>
-          <ListItem.Subtitle>{campsite.description}</ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem>
+      <Animatable.View animation="fadeInRightBig" duration={2000}>
+        <Tile
+          title={campsite.name}
+          caption={campsite.description}
+          featured
+          onPress={() => navigation.navigate("CampsiteInfo", { campsite })}
+          imageSrc={{ uri: baseUrl + campsite.image }}
+        />
+      </Animatable.View>
     );
   };
   return (
     <FlatList
-      data={props.campsite}
+      data={campsites.campsitesArray}
       renderItem={renderDirectoryItem}
       keyExtractor={(item) => item.id.toString()}
-    ></FlatList>
+    />
   );
 };
+
 export default DirectoryScreen;
